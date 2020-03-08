@@ -22,7 +22,7 @@ class Card:
         return self.suite
     
     def getRank(self):
-        additionranks = ['T', 'J', 'Q','K','A']
+        additionranks = list('TJQKA')
         if self.rank not in additionranks:
             return self.rank
         d = {suite: rank for rank,suite in enumerate(additionranks,10)}
