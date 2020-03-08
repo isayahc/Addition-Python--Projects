@@ -1,3 +1,8 @@
+'''
+Next Goals:
+1. create nor gate
+2. Create Nand gate
+'''
 class LogicGate:
 
     def __init__(self, n):
@@ -51,13 +56,62 @@ class UnaryGate(LogicGate):
         self.pin = None
 
     def getPin(self):
-        return int(input("Enter Pin input for gate" + self.getLabel()+"-->"))
+        if self.pin == None:
+            return int(input("Enter Pin input for gate" + self.getLabel()+"-->"))
+        else:
+            return self.pin.getFrom().getOutput()
 
     def setNextPin(self, source):
         if self.pin == None:
             self.pin = source
         else:
             print("Cannot Connect: NO EMPTY PINS on this gate")
+
+class AndGate(BinaryGate):
+
+    def __init__(self,n):
+        super(AndGate,self).__init__(n)
+
+    def performGateLogic(self):
+        a = self.getPinA()
+        b = self.getPinB()
+        return 1 if (a and b) ==1 else 0
+class NandGate(BinaryGate):
+    def __init__(self, n):
+        super(NandGate).__init__(n)
+
+    def performGateLogic(self):
+        a = self.getPinA()
+        b = self.getPinB()
+        return 1 if not (a or b) ==1 else 0
+
+class OrGate(BinaryGate):
+
+    def __init__(self,n):
+        super(OrGate, self).__init__(n)
+
+    def performGateLogic(self):
+        a = self.getPinA()
+        b = self.getPinB()
+        return 1 if (a or b) ==1 else  0
+        # if a or b ==1: return 1
+        # else: return 0 
+class NorGate(BinaryGate):
+    def __init__(self, n):
+        super(NorGate).__init__(n)
+
+    def performGateLogic(self):
+        a = self.getPinA()
+        b = self.getPinB()
+        return 1 if not (a or b) ==1 else 0
+
+class NotGate(UnaryGate):
+    
+    def __init__(self, n):
+        super(NotGate, self).__init__(n)
+
+    def performGateLogic(self):
+        return 0 if self.getPin() else 1
 
 
 
@@ -83,36 +137,7 @@ LogicGate.__init__(self,n) could be replaced super(UnaryGate, self).__init__(n)
 
 """
 
-class AndGate(BinaryGate):
 
-    def __init__(self,n):
-        super(AndGate,self).__init__(n)
-
-    def performGateLogic(self):
-        a = self.getPinA()
-        b = self.getPinB()
-        return 1 if a and b ==1 else 0
-
-
-class OrGate(BinaryGate):
-
-    def __init__(self,n):
-        super(OrGate, self).__init__(n)
-
-    def performGateLogic(self):
-        a = self.getPinA()
-        b = self.getPinB()
-        return 1 if a or b ==1 else  0
-        # if a or b ==1: return 1
-        # else: return 0 
-
-class NotGate(UnaryGate):
-    
-    def __init__(self, n):
-        super(NotGate, self).__init__(n)
-
-    def performGateLogic(self):
-        return 0 if self.getPin() else 1
 
 
 '''
